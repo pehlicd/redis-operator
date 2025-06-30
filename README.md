@@ -25,7 +25,7 @@ This project contains a Kubernetes Operator built with the Operator SDK and Gola
 ├── internal/
 │   └── controller/
 │       ├── redis_controller.go     # Main reconciliation logic for the Redis operator
-│       └── redis_controller_test.go # (Bonus) Unit tests for the controller
+│       └── redis_controller_test.go # Unit tests for the controller
 ├── config/
 │   ├── crd/
 │   │   └── bases/
@@ -50,6 +50,22 @@ Please visit [CRD_DOCS.md](CRD_DOCS.md) for the CRD documentation.
 - kubectl version v1.11.3+.
 - Access to a Kubernetes v1.11.3+ cluster.
 
+#### [Optional] Kind Cluster Installation
+
+```bash
+kind create cluster --config config/kind.yaml
+```
+
+Lastly to install ingress-nginx run if you need an ingress controller:
+
+```bash
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
+kubectl wait --namespace ingress-nginx \
+  --for=condition=ready pod \
+  --selector=app.kubernetes.io/component=controller \
+  --timeout=90s
+```
+
 ### Installations
 
 #### One command installation
@@ -57,20 +73,58 @@ Please visit [CRD_DOCS.md](CRD_DOCS.md) for the CRD documentation.
 kubectl apply -f https://raw.githubusercontent.com/pehlicd/redis-operator/main/dist/install.yaml
 ```
 
+#### Manual installation
 
-## License
+Clone the repository and run the following commands:
 
-Copyright 2025.
+```sh
+make deploy
+```
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+In order to uninstall the operator, run:
 
-    http://www.apache.org/licenses/LICENSE-2.0
+```sh
+make undeploy
+```
 
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+#### Running the operator locally
 
+To run the operator locally, you can use the following command:
+
+```sh
+make run
+```
+
+### Deploying your first Redis instance
+To deploy and discover your first Redis instance, you can use the provided sample manifest:
+
+```sh
+kubectl apply -f config/samples/redis_v1alpha1_redis.yaml
+
+#OR
+
+kubectl apply -f https://raw.githubusercontent.com/pehlicd/redis-operator/main/config/samples/redis_v1alpha1_redis.yaml #TODO: update this link
+```
+
+After applying the manifest, you can check and verify the objects of the Redis instance were created:
+
+```sh
+# Check that the Redis custom resource was created and its status is updated
+kubectl get redis.redis.yazio.com redis-sample -o yaml
+
+# Check that the Deployment was created
+kubectl get deployment redis-sample
+
+# Check that the Secret was created
+kubectl get secret redis-password
+
+# Check that the Service was created
+kubectl get service redis-service
+```
+
+### Running tests
+To run the tests, you can use the following command:
+
+```sh
+make test
+```
