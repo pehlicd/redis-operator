@@ -74,10 +74,14 @@ kubectl wait --namespace ingress-nginx \
 kubectl apply -f https://raw.githubusercontent.com/pehlicd/redis-operator/main/dist/install.yaml
 ```
 
-#### Helm installation
+#### Helm installation (recommended)
 To install the operator using Helm, you can use the following commands:
 
 ```sh
+helm install my-redis-operator https://github.com/pehlicd/redis-operator/releases/download/redis-operator-0.1.0/redis-operator-0.1.0.tgz
+
+# OR
+
 helm install redis-operator ./charts/redis-operator
 ```
 
