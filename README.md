@@ -37,6 +37,7 @@ This project contains a Kubernetes Operator built with the Operator SDK and Gola
 ├── Makefile
 └── README.md
 └── CRD_DOCS.md
+└── ...
 ```
 
 ### CRD Documentation
@@ -120,6 +121,12 @@ kubectl get secret redis-password
 
 # Check that the Service was created
 kubectl get service redis-service
+```
+
+To check random generated password in the secret in use by the Redis instance, you can run:
+
+```sh
+kubectl get deployment redis-sample -o jsonpath='{.spec.template.spec.containers[0].env}' | jq
 ```
 
 ### Running tests
