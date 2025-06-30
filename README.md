@@ -74,6 +74,13 @@ kubectl wait --namespace ingress-nginx \
 kubectl apply -f https://raw.githubusercontent.com/pehlicd/redis-operator/main/dist/install.yaml
 ```
 
+#### Helm installation
+To install the operator using Helm, you can use the following commands:
+
+```sh
+helm install redis-operator ./charts/redis-operator
+```
+
 #### Manual installation
 
 Clone the repository and run the following commands:
@@ -104,7 +111,7 @@ kubectl apply -f config/samples/redis_v1alpha1_redis.yaml
 
 #OR
 
-kubectl apply -f https://raw.githubusercontent.com/pehlicd/redis-operator/main/config/samples/redis_v1alpha1_redis.yaml #TODO: update this link
+kubectl apply -f https://raw.githubusercontent.com/pehlicd/redis-operator/main/config/samples/redis_v1alpha1_redis.yaml
 ```
 
 After applying the manifest, you can check and verify the objects of the Redis instance were created:
