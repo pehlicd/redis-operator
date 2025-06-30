@@ -50,6 +50,7 @@ const (
 // +kubebuilder:rbac:groups=apps,resources=deployments,verbs=get;list;watch;create;update;patch;delete
 // +kubebuilder:rbac:groups="",resources=secrets,verbs=get;list;watch;create;update;patch;delete
 // +kubebuilder:rbac:groups="",resources=services,verbs=get;list;watch;create;update;patch;delete
+// +kubebuilder:rbac:groups="",resources=events,verbs=get;list;watch;create;update;patch;delete
 // +kubebuilder:rbac:groups=redis.yazio.com,resources=redis,verbs=get;list;watch;create;update;patch;delete
 // +kubebuilder:rbac:groups=redis.yazio.com,resources=redis/status,verbs=get;update;patch
 // +kubebuilder:rbac:groups=redis.yazio.com,resources=redis/finalizers,verbs=update
