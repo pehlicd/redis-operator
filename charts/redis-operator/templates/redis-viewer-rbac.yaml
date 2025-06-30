@@ -1,0 +1,21 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ include "redis-operator.fullname" . }}-redis-viewer-role
+  labels:
+  {{- include "redis-operator.labels" . | nindent 4 }}
+rules:
+- apiGroups:
+  - redis.yazio.com
+  resources:
+  - redis
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - redis.yazio.com
+  resources:
+  - redis/status
+  verbs:
+  - get

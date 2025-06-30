@@ -1,0 +1,12 @@
+apiVersion: redis.yazio.com/v1alpha1
+kind: Redis
+metadata:
+  labels:
+    app.kubernetes.io/name: redis-operator
+    app.kubernetes.io/managed-by: kustomize
+  name: redis-sample
+spec:
+    replicas: 1
+    env:
+      - name: REDIS_DISABLE_COMMANDS
+        value: "FLUSHDB,FLUSHALL"
